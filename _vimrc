@@ -20,6 +20,11 @@ set nobackup				  "表示不需要备份文件
 set noswapfile				  "表示不创建临时交换文件
 set nowritebackup			  "表示编辑的时候不需要备份文件
 set noundofile				  "表示不创建撤销文件
+
+" 设置代码折叠为手动
+set foldmethod=manual
+"打开文件是默认不折叠代码
+set foldlevelstart=99
 " 基本配置=============================================================
 
 source $VIMRUNTIME/vimrc_example.vim
