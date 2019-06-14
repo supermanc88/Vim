@@ -39,13 +39,15 @@ Plug 'Valloric/YouCompleteMe'   ",{'on':[]}
 " augroup END
 Plug 'scrooloose/nerdtree'                    							" 目录树
 Plug 'vim-airline/vim-airline'                							" 状态栏
-Plug 'majutsushi/tagbar',{'on':'TagbarToggle'}						    " 标签插件 非C类禁用 tagbar 不然打开文件卡顿
+"Plug 'majutsushi/tagbar',{'on':'TagbarToggle'}						    " 标签插件 非C类禁用 tagbar 不然打开文件卡顿
 Plug 'kien/ctrlp.vim'					    							" 文件搜索
 Plug 'vim-airline/vim-airline-themes'									" 状态栏主题
 Plug 'godlygeek/tabular'												" Vim markdown语法插件
 Plug 'plasticboy/vim-markdown'											" -------------------
 Plug 'flazz/vim-colorschemes'               							" 代码高亮, 主题
 Plug 'hzchirs/vim-material'												" material主题
+Plug 'stephpy/vim-php-cs-fixer'											" php格式化
+Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }						" 搜索插件
 call plug#end()
 
 " 添加 http://github.com/tpope/vim-unimpaired 插件 用来补充一些映射
@@ -89,7 +91,16 @@ let g:ycm_warning_symbol = '⚠'
 highlight YcmWarningSection ctermbg=none
 "highlight YcmErrorLine        出错行颜色
 "highlight YcmWarningLine
+
+" 跳转快捷键
+nnoremap <c-k> :YcmCompleter GoToDeclaration<CR>|
+nnoremap <c-h> :YcmCompleter GoToDefinition<CR>| 
+nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>|
 " YouCompleteMe 配置===================================================
+
+" LeaderF 配置========================================================
+noremap <F2> :LeaderfFunction!<cr>           
+" LeaderF 配置========================================================
 
 
 " airline theme 配置===================================================
@@ -113,7 +124,31 @@ if has("gui_running")
 endif
 " ====================================================================
 
+" Vim-php-cs-fixer 配置==================================================
+" If php-cs-fixer is in $PATH, you don't need to define line below
+let g:php_cs_fixer_path = "C:/wamp64/bin/php/php7.2.4/php-cs-fixer-v2.phar" " define the path to the php-cs-fixer.phar
 
+" If you use php-cs-fixer version 1.x
+" let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
+" let g:php_cs_fixer_config = "default"                  " options: --config
+" If you want to define specific fixers:
+"let g:php_cs_fixer_fixers_list = "linefeed,short_tag" " options: --fixers
+"let g:php_cs_fixer_config_file = '.php_cs'            " options: --config-file
+" End of php-cs-fixer version 1 config params
+
+" If you use php-cs-fixer version 2.x
+let g:php_cs_fixer_rules = "@PSR2"          " options: --rules (default:@PSR2)
+"let g:php_cs_fixer_cache = ".php_cs.cache" " options: --cache-file
+"let g:php_cs_fixer_config_file = '.php_cs' " options: --config
+" End of php-cs-fixer version 2 config params
+
+let g:php_cs_fixer_php_path = "php"               " Path to PHP
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+" =======================================================================
 
 " 窗口透明度 配置========================================================
 if has('gui_running') && has('libcall')
