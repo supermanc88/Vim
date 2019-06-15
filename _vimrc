@@ -29,7 +29,7 @@ set foldlevelstart=99
 
 source $VIMRUNTIME/vimrc_example.vim
 
-
+" vim-plug: Vim plugin manager
 call plug#begin('$VIMRUNTIME/../plugged')
 " 自动补全 此插件安装的时候需要手动编译
 Plug 'Valloric/YouCompleteMe'   ",{'on':[]}			                 	
